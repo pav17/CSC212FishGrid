@@ -162,8 +162,8 @@ public class World {
 	 * @param color - the color of the fish.
 	 * @return the new fish itself.
 	 */
-	public Fish insertFishRandomly(int color) {
-		Fish f = new Fish(color, this);
+	public P2Fish insertFishRandomly(int color) {
+		P2Fish f = new P2Fish(color, this);
 		insertRandomly(f);
 		return f;
 	}

@@ -11,14 +11,18 @@ import java.awt.geom.Ellipse2D;
  * 
  * @author jfoley
  */
-public class Fish extends WorldObject {
+public class P2Fish extends WorldObject {
 	/**
 	 * A fish is only special because of its color now!
 	 */
 	static Color[] COLORS = {
 			Color.red,
 			Color.green,
-			Color.yellow
+			Color.yellow,
+			Color.darkGray,
+			Color.magenta,
+			Color.pink,
+			Color.white
 			// TODO: (lab) Add more colors.
 			// TODO: (FishGrid) Maybe make a special fish that is more points?
 	};
@@ -30,6 +34,11 @@ public class Fish extends WorldObject {
 	 * Whether or not this is the player;
 	 */
 	boolean player = false;
+	
+	/**
+	 * is the fish a fast fish
+	 */
+	boolean fastScared = false;
 	
 	/**
 	 * Called only on the Fish that is the player!
@@ -44,9 +53,12 @@ public class Fish extends WorldObject {
 	 * @param color Color by number.
 	 * @param world The world itself.
 	 */
-	public Fish(int color, World world) {
+	public P2Fish(int color, World world) {
 		super(world);
 		this.color = color;
+		if (this.rand.nextDouble() > .5) {
+			this.fastScared = true;
+		}
 	}
 	
 	/**

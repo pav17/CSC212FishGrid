@@ -121,7 +121,7 @@ public abstract class WorldObject {
 	 * @return true if this is a Fish.
 	 */
 	public boolean isFish() {
-		return this instanceof Fish;
+		return this instanceof P2Fish;
 	}
 
 	/**
@@ -130,7 +130,7 @@ public abstract class WorldObject {
 	 * @return true if this is a Fish that is the player.
 	 */
 	public boolean isPlayer() {
-		return isFish() && ((Fish) this).player;
+		return isFish() && ((P2Fish) this).player;
 	}
 
 	/**
