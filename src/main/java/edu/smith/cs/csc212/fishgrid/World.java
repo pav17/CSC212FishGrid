@@ -8,7 +8,7 @@ import me.jjfoley.gfx.IntPoint;
 /**
  * A World is a 2d grid, represented as a width, a height, and a list of WorldObjects in that world.
  * @author jfoley
- *
+ * modified by @author Per Van Dyke
  */
 public class World {
 	/**
@@ -158,6 +158,26 @@ public class World {
 	}
 	
 	/**
+	 * Insert a new Falling Rock into the world at random.
+	 * @return the Falling Rock.
+	 */
+	public FallingRock insertFallingRockRandomly() {
+		FallingRock fr = new FallingRock(this);
+		insertRandomly(fr);
+		return fr;
+	}
+	
+	/**
+	 * Insert a new Falling Rock into the world at random.
+	 * @return the Falling Rock.
+	 */
+	public FishFood insertFishFoodRandomly() {
+		FishFood ff = new FishFood(this);
+		insertRandomly(ff);
+		return ff;
+	}
+	
+	/**
 	 * Insert a new Fish into the world at random of a specific color.
 	 * @param color - the color of the fish.
 	 * @return the new fish itself.
@@ -210,6 +230,10 @@ public class World {
 				// This if-statement doesn't let anyone step on the Snail.
 				// The Snail(s) are not gonna take it.
 				return false;
+			} else if (it instanceof Rock) {
+				return false;
+			} else if (it instanceof P2Fish && !isPlayer) {
+				return false;
 			}
 		}
 		
@@ -233,14 +257,18 @@ public class World {
 	 * @param followers a set of objects to follow the leader.
 	 */
 	public static void objectsFollow(WorldObject target, List<? extends WorldObject> followers) {
-		// TODO(FishGrid) Comment this method!
 		// What is recentPositions?
+		// Recent positions is a deque which tracks where a specific world object has been
+		// In this case the player
 		// What is followers?
-		// What is target?
+		// A list of the fish following the player
 		// Why is past = putWhere[i+1]? Why not putWhere[i]?
+		// i = 0 is the player, so you have to adjust so the player doesn't get covered
 		List<IntPoint> putWhere = new ArrayList<>(target.recentPositions);
 		for (int i=0; i < followers.size() && i+1 < putWhere.size(); i++) {
 			// What is the deal with the two conditions in this for-loop?
+			// there are two different lists being used, with different sizes, both of which 
+			// need to be checked to make sure we don't get an index out of bounds error
 			IntPoint past = putWhere.get(i+1);
 			followers.get(i).setPosition(past.x, past.y);
 		}

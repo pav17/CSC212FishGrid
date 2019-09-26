@@ -10,6 +10,7 @@ import java.awt.geom.Ellipse2D;
  * Or it is in Main, where the missing/found and player fish all act different!
  * 
  * @author jfoley
+ * modified by @author Per Van Dyke
  */
 public class P2Fish extends WorldObject {
 	/**
@@ -20,11 +21,10 @@ public class P2Fish extends WorldObject {
 			Color.green,
 			Color.yellow,
 			Color.darkGray,
-			Color.magenta,
 			Color.pink,
-			Color.white
-			// TODO: (lab) Add more colors.
-			// TODO: (FishGrid) Maybe make a special fish that is more points?
+			Color.white,
+			Color.black,
+			Color.orange
 	};
 	/**
 	 * This is an index into the {@link #COLORS} array.
@@ -39,6 +39,16 @@ public class P2Fish extends WorldObject {
 	 * is the fish a fast fish
 	 */
 	boolean fastScared = false;
+	
+	/**
+	 * how much is the fish worth?
+	 */
+	public int scoreValue;
+	
+	/**
+	 * how long has the fish been found
+	 */
+	public int foundTimer;
 	
 	/**
 	 * Called only on the Fish that is the player!
@@ -56,6 +66,8 @@ public class P2Fish extends WorldObject {
 	public P2Fish(int color, World world) {
 		super(world);
 		this.color = color;
+		foundTimer = 0;
+		this.scoreValue = rand.nextInt(10)+1;
 		if (this.rand.nextDouble() > .5) {
 			this.fastScared = true;
 		}

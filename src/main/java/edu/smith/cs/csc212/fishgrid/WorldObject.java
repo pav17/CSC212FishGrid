@@ -16,6 +16,7 @@ import me.jjfoley.gfx.IntPoint;
  * All movement is defined in this class.
  * 
  * @author jfoley
+ * modified by @author Per Van Dyke
  */
 public abstract class WorldObject {
 	/**
@@ -91,7 +92,7 @@ public abstract class WorldObject {
 	 * Private method to keep track of this object's position history. Used to make
 	 * Fish follow the Player.
 	 */
-	private void updatePosition() {
+	protected void updatePosition() {
 		// Add to front.
 		this.recentPositions.offerFirst(new IntPoint(this.x, this.y));
 		if (this.recentPositions.size() > NUM_RECENT_POSITIONS) {
@@ -122,6 +123,33 @@ public abstract class WorldObject {
 	 */
 	public boolean isFish() {
 		return this instanceof P2Fish;
+	}
+	
+	/**
+	 * Is this a rock?
+	 * 
+	 * @return true if this is a rock
+	 */
+	public boolean isRock() {
+		return this instanceof Rock;
+	}
+	
+	/**
+	 * Is this home?
+	 * 
+	 * @return true if this is home
+	 */
+	public boolean isHome() {
+		return this instanceof FishHome;
+	}
+	
+	/**
+	 * Is this home?
+	 * 
+	 * @return true if this is home
+	 */
+	public boolean isFood() {
+		return this instanceof FishFood;
 	}
 
 	/**
